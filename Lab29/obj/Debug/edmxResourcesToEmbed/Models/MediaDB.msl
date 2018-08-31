@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="mediaModelStoreContainer" CdmEntityContainer="mediaEntities">
+    <EntitySetMapping Name="films">
+      <EntityTypeMapping TypeName="mediaModel.film">
+        <MappingFragment StoreEntitySet="film">
+          <ScalarProperty Name="filepath" ColumnName="filepath" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="televisions">
+      <EntityTypeMapping TypeName="mediaModel.television">
+        <MappingFragment StoreEntitySet="television">
+          <ScalarProperty Name="folderpath" ColumnName="folderpath" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="episodes">
+      <EntityTypeMapping TypeName="mediaModel.episode">
+        <MappingFragment StoreEntitySet="episode">
+          <ScalarProperty Name="seasonnum" ColumnName="seasonnum" />
+          <ScalarProperty Name="episodenum" ColumnName="episodenum" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="filepath" ColumnName="filepath" />
+          <ScalarProperty Name="showid" ColumnName="showid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

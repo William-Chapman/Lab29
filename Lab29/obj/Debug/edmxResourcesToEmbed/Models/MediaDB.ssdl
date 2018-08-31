@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mediaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="episode">
+    <Key>
+      <PropertyRef Name="showid" />
+    </Key>
+    <Property Name="showid" Type="int" Nullable="false" />
+    <Property Name="filepath" Type="nvarchar" MaxLength="500" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="episodenum" Type="int" Nullable="false" />
+    <Property Name="seasonnum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="film">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="filepath" Type="nvarchar" MaxLength="500" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="genre" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="television">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="folderpath" Type="nvarchar" MaxLength="500" />
+    <Property Name="title" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="genre" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_episode_episode">
+    <End Role="television" Type="Self.television" Multiplicity="1" />
+    <End Role="episode" Type="Self.episode" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="television">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="episode">
+        <PropertyRef Name="showid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="mediaModelStoreContainer">
+    <EntitySet Name="episode" EntityType="Self.episode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="film" EntityType="Self.film" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="television" EntityType="Self.television" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_episode_episode" Association="Self.FK_episode_episode">
+      <End Role="television" EntitySet="television" />
+      <End Role="episode" EntitySet="episode" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

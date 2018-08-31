@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="mediaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="film">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="genre" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="filepath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="television">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="genre" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="folderpath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="episode" Relationship="mediaModel.FK_episode_episode" FromRole="television" ToRole="episode" />
+  </EntityType>
+  <EntityContainer Name="mediaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="films" EntityType="Self.film" />
+    <EntitySet Name="televisions" EntityType="Self.television" />
+    <EntitySet Name="episodes" EntityType="mediaModel.episode" />
+    <AssociationSet Name="FK_episode_episode" Association="mediaModel.FK_episode_episode">
+      <End Role="television" EntitySet="televisions" />
+      <End Role="episode" EntitySet="episodes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="episode">
+    <Key>
+      <PropertyRef Name="showid" />
+    </Key>
+    <Property Name="showid" Type="Int32" Nullable="false" />
+    <Property Name="filepath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="episodenum" Type="Int32" Nullable="false" />
+    <Property Name="seasonnum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="television" Relationship="mediaModel.FK_episode_episode" FromRole="episode" ToRole="television" />
+  </EntityType>
+  <Association Name="FK_episode_episode">
+    <End Type="mediaModel.television" Role="television" Multiplicity="1" />
+    <End Type="mediaModel.episode" Role="episode" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="television">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="episode">
+        <PropertyRef Name="showid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
